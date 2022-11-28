@@ -2,12 +2,33 @@
 
 public class MenuMaster
 {
-    public MenuMaster(IEnumerable<string> dishes, int itemsPerPage)
+    public int Count => _dishes.Count();
+
+    public int PagesCount
     {
-        if (!dishes.Any())
+        get
+        {
+            var count = _dishes.Count();
+            var result = count / _dishesPerPage;
+            if (result * _dishesPerPage < count)
+                return result + 1;
+            return result;
+        }
+    }
+
+    private readonly IEnumerable<string> _dishes;
+    private readonly int _dishesPerPage;
+
+    public MenuMaster(IEnumerable<string> dishes, int dishesPerPage)
+    {
+        var dishList = dishes.ToList();
+        if (!dishList.Any())
             throw new ArgumentException($"The {nameof(dishes)} parameter can not be empty");
 
-        if (itemsPerPage < 1)
-            throw new ArgumentException($"The {nameof(itemsPerPage)} parameter can not be less than 1");
+        if (dishesPerPage < 1)
+            throw new ArgumentException($"The {nameof(dishesPerPage)} parameter can not be less than 1");
+
+        _dishes = dishList;
+        _dishesPerPage = dishesPerPage;
     }
 }
