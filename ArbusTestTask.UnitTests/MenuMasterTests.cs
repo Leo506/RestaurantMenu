@@ -12,11 +12,7 @@ public partial class MenuMasterTests
     public void PagesCount_ReturnsTotalPagesAmount(int dishesCount, int dishesPerPage, int expectedPagesCount)
     {
         // arrange
-        var dishes = new List<string>();
-        for (var i = 0; i < dishesCount; i++)
-        {
-            dishes.Add($"Dish_{i}");
-        }
+        var dishes = MakeDishesCollection(dishesCount);
 
         var sut = new MenuMaster(dishes, dishesPerPage);
 

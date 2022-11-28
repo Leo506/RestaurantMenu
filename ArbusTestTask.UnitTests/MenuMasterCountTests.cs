@@ -9,15 +9,10 @@ public partial class MenuMasterTests
     public void Count_ReturnsTotalDishesCount()
     {
         // arrange
-        var dishes = new List<string>()
-        {
-            "Dish_1",
-            "Dish_2",
-            "Dish_3"
-        };
+        var dishes = MakeDishesCollection().ToList();
         var expectedResult = dishes.Count;
 
-        var sut = new MenuMaster(dishes, 2);
+        var sut = new MenuMaster(dishes, DishesPerPage);
 
         // act
         var result = sut.Count;
