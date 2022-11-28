@@ -19,14 +19,14 @@ public partial class MenuMasterTests
     public void MenuMaster_DishesCollectionIsNull_ThrowException()
     {
         // act and assert
-        Assert.Throws<ArgumentNullException>(() => new MenuMaster(null!, DishesPerPage));
+        Assert.Throws<ArgumentNullException>(() => new MenuMaster(null!, DishesPerPage));  // TODO replace by fluent assertion
     }
 
     [Fact]
     public void MenuMaster_ProvideEmptyDishesCollection_ThrowException()
     {
         // act and assert
-        Assert.Throws<ArgumentException>(() => new MenuMaster(MakeDishesCollection(0), DishesPerPage));
+        Assert.Throws<ArgumentException>(() => new MenuMaster(MakeDishesCollection(0), DishesPerPage));  // TODO replace by fluent assertion
     }
 
     [Theory]
@@ -35,6 +35,6 @@ public partial class MenuMasterTests
     public void MenuMaster_ItemsPerPageLessThanOne_ThrowException(int itemsPerPage)
     {
         // act and assert
-        Assert.Throws<ArgumentException>(() => new MenuMaster(MakeDishesCollection(), itemsPerPage));
+        Assert.Throws<ArgumentException>(() => new MenuMaster(MakeDishesCollection(), itemsPerPage));  // TODO replace by fluent assertion
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace ArbusTestsTask;
+﻿using Microsoft.VisualBasic;
 
-public class MenuMaster
+namespace ArbusTestsTask;
+
+public class MenuMaster  // TODO make generic
 {
     public int Count => _dishes.Count();
 
@@ -16,17 +18,18 @@ public class MenuMaster
         }
     }
 
-    private readonly IEnumerable<string> _dishes;
+    private readonly IEnumerable<string> _dishes;  // TODO replace by IList
     private readonly int _dishesPerPage;
 
     public MenuMaster(IEnumerable<string> dishes, int dishesPerPage)
     {
         var dishList = dishes.ToList();
         if (!dishList.Any())
-            throw new ArgumentException($"The {nameof(dishes)} parameter can not be empty");
+            throw new ArgumentException(ExceptionMessages.EmptyArgument(nameof(dishes)), nameof(dishes));
 
         if (dishesPerPage < 1)
-            throw new ArgumentException($"The {nameof(dishesPerPage)} parameter can not be less than 1");
+            throw new ArgumentException(ExceptionMessages.LessThanMinValue(nameof(dishesPerPage), 1),
+                nameof(dishesPerPage));
 
         _dishes = dishList;
         _dishesPerPage = dishesPerPage;
@@ -35,11 +38,10 @@ public class MenuMaster
     public int GetDishesCountOnPage(int pageIndex)
     {
         if (pageIndex < 0)
-            throw new IndexOutOfRangeException($"The {nameof(pageIndex)} parameter can not be less than 0");
+            throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
 
         if (pageIndex > PagesCount - 1)
-            throw new IndexOutOfRangeException(
-                $"The {nameof(pageIndex)} parameter can not be more than max page index: {PagesCount - 1}");
+            throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
         
         if (pageIndex != PagesCount - 1) 
             return _dishesPerPage;
