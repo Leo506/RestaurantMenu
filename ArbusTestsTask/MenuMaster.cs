@@ -31,4 +31,20 @@ public class MenuMaster
         _dishes = dishList;
         _dishesPerPage = dishesPerPage;
     }
+
+    public int GetDishesCountOnPage(int pageIndex)
+    {
+        if (pageIndex < 0)
+            throw new IndexOutOfRangeException($"The {nameof(pageIndex)} parameter can not be less than 0");
+
+        if (pageIndex > PagesCount - 1)
+            throw new IndexOutOfRangeException(
+                $"The {nameof(pageIndex)} parameter can not be more than max page index: {PagesCount - 1}");
+        
+        if (pageIndex != PagesCount - 1) 
+            return _dishesPerPage;
+        
+        var result = Count % _dishesPerPage;
+        return result == 0 ? _dishesPerPage : result;
+    }
 }
