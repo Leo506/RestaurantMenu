@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using ArbusTestsTask.Exceptions;
+using System;
 
 namespace ArbusTestsTask;
 
@@ -25,11 +26,10 @@ public class MenuMaster<T>
     {
         var dishList = dishes.ToList();
         if (!dishList.Any())
-            throw new ArgumentException(ExceptionMessages.EmptyArgument(nameof(dishes)), nameof(dishes));
+            throw new EmptyArgumentException(nameof(dishes));
 
         if (dishesPerPage < 1)
-            throw new ArgumentException(ExceptionMessages.LessThanMinValue(nameof(dishesPerPage), 1),
-                nameof(dishesPerPage));
+            throw new ArgumentLessThanMinValueException<int>(nameof(dishesPerPage), 1);
 
         _dishes = dishList;
         _dishesPerPage = dishesPerPage;
@@ -38,7 +38,7 @@ public class MenuMaster<T>
     public int GetDishesCountOnPage(int pageIndex)
     {
         if (pageIndex < 0 || pageIndex > PagesCount - 1)
-            throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
+            throw new ArgumentOutOfRangeException(nameof(pageIndex));
 
         if (pageIndex != PagesCount - 1) 
             return _dishesPerPage;
@@ -50,7 +50,7 @@ public class MenuMaster<T>
     public IEnumerable<T> GetDishesOnPage(int pageIndex)
     {
         if (pageIndex < 0 || pageIndex > PagesCount - 1)
-            throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
+            throw new ArgumentOutOfRangeException(nameof(pageIndex));
         
         return _dishes.Skip(pageIndex * _dishesPerPage).Take(_dishesPerPage);
     }

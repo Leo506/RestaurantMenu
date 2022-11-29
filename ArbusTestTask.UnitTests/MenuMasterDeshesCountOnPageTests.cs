@@ -32,7 +32,7 @@ public partial class MenuMasterTests
         var action = () => sut.GetDishesCountOnPage(-1);
 
         // assert
-        action.Should().Throw<IndexOutOfRangeException>();
+        action.Should().Throw<ArgumentOutOfRangeException>();
     }
 
     [Fact]
@@ -45,6 +45,6 @@ public partial class MenuMasterTests
         var action = () => sut.GetDishesCountOnPage(int.MaxValue);
 
         // assert
-        action.Should().Throw<IndexOutOfRangeException>();
+        action.Should().Throw<ArgumentOutOfRangeException>();
     }
 }
