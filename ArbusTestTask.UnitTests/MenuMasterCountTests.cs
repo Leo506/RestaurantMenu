@@ -12,7 +12,7 @@ public partial class MenuMasterTests
         var dishes = MakeDishesCollection().ToList();
         var expectedResult = dishes.Count;
 
-        var sut = new MenuMaster(dishes, DishesPerPage);
+        var sut = new MenuMaster<string>(dishes, DishesPerPage);
 
         // act
         var result = sut.Count;

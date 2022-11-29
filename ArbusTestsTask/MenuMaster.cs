@@ -2,15 +2,15 @@
 
 namespace ArbusTestsTask;
 
-public class MenuMaster  // TODO make generic
+public class MenuMaster<T>
 {
-    public int Count => _dishes.Count();
+    public int Count => _dishes.Count;
 
     public int PagesCount
     {
         get
         {
-            var count = _dishes.Count();
+            var count = _dishes.Count;
             var result = count / _dishesPerPage;
             if (result * _dishesPerPage < count)
                 return result + 1;
@@ -18,10 +18,10 @@ public class MenuMaster  // TODO make generic
         }
     }
 
-    private readonly IEnumerable<string> _dishes;  // TODO replace by IList
+    private readonly IList<T> _dishes;
     private readonly int _dishesPerPage;
 
-    public MenuMaster(IEnumerable<string> dishes, int dishesPerPage)
+    public MenuMaster(IEnumerable<T> dishes, int dishesPerPage)
     {
         var dishList = dishes.ToList();
         if (!dishList.Any())
@@ -37,13 +37,9 @@ public class MenuMaster  // TODO make generic
 
     public int GetDishesCountOnPage(int pageIndex)
     {
-        // TODO move in one if
-        if (pageIndex < 0)
+        if (pageIndex < 0 || pageIndex > PagesCount - 1)
             throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
 
-        if (pageIndex > PagesCount - 1)
-            throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
-        
         if (pageIndex != PagesCount - 1) 
             return _dishesPerPage;
         
@@ -51,7 +47,7 @@ public class MenuMaster  // TODO make generic
         return result == 0 ? _dishesPerPage : result;
     }
 
-    public IEnumerable<string> GetDishesOnPage(int pageIndex)
+    public IEnumerable<T> GetDishesOnPage(int pageIndex)
     {
         if (pageIndex < 0 || pageIndex > PagesCount - 1)
             throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));

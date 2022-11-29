@@ -9,7 +9,7 @@ public partial class MenuMasterTests
     public void MenuMaster_ProvideDishesCollectionAndItemsCountPerPage_Success()
     {
         // act
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // assert
         sut.Should().NotBeNull();
@@ -18,15 +18,21 @@ public partial class MenuMasterTests
     [Fact]
     public void MenuMaster_DishesCollectionIsNull_ThrowException()
     {
-        // act and assert
-        Assert.Throws<ArgumentNullException>(() => new MenuMaster(null!, DishesPerPage));  // TODO replace by fluent assertion
+        // act
+        var action = () => new MenuMaster<string>(null!, DishesPerPage);
+        
+        // assert
+        action.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void MenuMaster_ProvideEmptyDishesCollection_ThrowException()
     {
-        // act and assert
-        Assert.Throws<ArgumentException>(() => new MenuMaster(MakeDishesCollection(0), DishesPerPage));  // TODO replace by fluent assertion
+        // act
+        var action = () => new MenuMaster<string>(MakeDishesCollection(0), DishesPerPage);
+        
+        // assert
+        action.Should().Throw<ArgumentException>();
     }
 
     [Theory]
@@ -34,7 +40,10 @@ public partial class MenuMasterTests
     [InlineData(-1)]
     public void MenuMaster_ItemsPerPageLessThanOne_ThrowException(int itemsPerPage)
     {
-        // act and assert
-        Assert.Throws<ArgumentException>(() => new MenuMaster(MakeDishesCollection(), itemsPerPage));  // TODO replace by fluent assertion
+        // act
+        var action = () => new MenuMaster<string>(MakeDishesCollection(), itemsPerPage);
+        
+        // assert
+        action.Should().Throw<ArgumentException>();
     }
 }

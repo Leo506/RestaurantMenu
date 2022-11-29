@@ -13,7 +13,7 @@ public partial class MenuMasterTests
         int dishesPerPage)
     {
         // arrange
-        var sut = new MenuMaster(MakeDishesCollection(totalDishes), dishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(totalDishes), dishesPerPage);
 
         // act
         var result = sut.GetDishesCountOnPage(page);
@@ -26,7 +26,7 @@ public partial class MenuMasterTests
     public void GetDishesCountOnPage_PageIndexLessThanZero_ThrowException()
     {
         // arrange
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // act
         var action = () => sut.GetDishesCountOnPage(-1);
@@ -39,7 +39,7 @@ public partial class MenuMasterTests
     public void GetDishesCountOnPage_PageIndexMoreThanPageCount_ThrowException()
     {
         // arrange
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // act
         var action = () => sut.GetDishesCountOnPage(int.MaxValue);

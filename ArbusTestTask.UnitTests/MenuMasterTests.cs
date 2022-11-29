@@ -14,7 +14,7 @@ public partial class MenuMasterTests
         // arrange
         var dishes = MakeDishesCollection(dishesCount);
 
-        var sut = new MenuMaster(dishes, dishesPerPage);
+        var sut = new MenuMaster<string>(dishes, dishesPerPage);
 
         // act
         var result = sut.PagesCount;
@@ -33,7 +33,7 @@ public partial class MenuMasterTests
             "Dish_1"
         };
 
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // act
         var result = sut.GetDishesOnPage(0);
@@ -51,7 +51,7 @@ public partial class MenuMasterTests
             "Dish_2",
         };
         
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // act
         var result = sut.GetDishesOnPage(1);
@@ -64,7 +64,7 @@ public partial class MenuMasterTests
     public void GetDishesOnPage_IndexLessThanZero_ThrowException()
     {
         // arrange
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // act
         var action = () => sut.GetDishesOnPage(-1);
@@ -77,7 +77,7 @@ public partial class MenuMasterTests
     public void GetDishesOnPage_IndexMoreThanMaxPageIndex_ThrowException()
     {
         // arrange
-        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+        var sut = new MenuMaster<string>(MakeDishesCollection(), DishesPerPage);
 
         // act
         var action = () => sut.GetDishesOnPage(int.MaxValue);
