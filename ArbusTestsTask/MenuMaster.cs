@@ -49,4 +49,9 @@ public class MenuMaster  // TODO make generic
         var result = Count % _dishesPerPage;
         return result == 0 ? _dishesPerPage : result;
     }
+
+    public IEnumerable<string> GetDishesOnPage(int pageIndex)
+    {
+        return _dishes.Skip(pageIndex * _dishesPerPage).Take(_dishesPerPage);
+    }
 }

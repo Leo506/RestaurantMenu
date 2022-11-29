@@ -23,47 +23,40 @@ public partial class MenuMasterTests
         result.Should().Be(expectedPagesCount);
     }
 
-
-    [Theory]
-    [InlineData(0, 2, 3, 2)]
-    [InlineData(1, 1, 3, 2)]
-    [InlineData(1, 2, 4, 2)]
-    public void GetDishesCountOnPage_ReturnsDishesOnPage(int page, int expectedDishes, int totalDishes,
-        int dishesPerPage)
-    {
-        // arrange
-        var sut = new MenuMaster(MakeDishesCollection(totalDishes), dishesPerPage);
-
-        // act
-        var result = sut.GetDishesCountOnPage(page);
-
-        // assert
-        result.Should().Be(expectedDishes);
-    }
-
     [Fact]
-    public void GetDishesCountOnPage_PageIndexLessThanZero_ThrowException()
+    public void GetDishesOnPage_FullFilledPage_ReturnsDishesOnPage()
     {
         // arrange
+        var expectedDishesCollection = new List<string>()
+        {
+            "Dish_0",
+            "Dish_1"
+        };
+
         var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
 
         // act
-        var action = () => sut.GetDishesCountOnPage(-1);
+        var result = sut.GetDishesOnPage(0);
 
         // assert
-        action.Should().Throw<IndexOutOfRangeException>();
+        result.SequenceEqual(expectedDishesCollection).Should().BeTrue();
     }
 
     [Fact]
-    public void GetDishesCountOnPage_PageIndexMoreThanPageCount_ThrowException()
+    public void GetDishesOnPage_PageNotFilled_ReturnsDishesOnPage()
     {
         // arrange
+        var expectedDishesCollection = new List<string>()
+        {
+            "Dish_2",
+        };
+        
         var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
 
         // act
-        var action = () => sut.GetDishesCountOnPage(int.MaxValue);
+        var result = sut.GetDishesOnPage(1);
 
         // assert
-        action.Should().Throw<IndexOutOfRangeException>();
+        result.SequenceEqual(expectedDishesCollection).Should().BeTrue();
     }
 }
