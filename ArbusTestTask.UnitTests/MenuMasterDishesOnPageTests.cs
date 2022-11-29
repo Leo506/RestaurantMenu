@@ -21,7 +21,7 @@ public partial class MenuMasterTests
         var result = sut.GetDishesOnPage(0);
 
         // assert
-        result.SequenceEqual(expectedDishesCollection).Should().BeTrue();
+        result.Should().ContainInOrder(expectedDishesCollection);
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public partial class MenuMasterTests
         var result = sut.GetDishesOnPage(1);
 
         // assert
-        result.SequenceEqual(expectedDishesCollection).Should().BeTrue();
+        result.Should().ContainInOrder(expectedDishesCollection);
     }
 
     [Fact]

@@ -39,6 +39,6 @@ public partial class MenuMasterTests
         var result = sut.GetFirstDishesOnPages();
 
         // assert
-        result.SequenceEqual(expectedDishesCollection).Should().BeTrue();
+        result.Should().ContainInOrder(expectedDishesCollection);
     }
 }
