@@ -54,4 +54,15 @@ public class MenuMaster<T>
         
         return _dishes.Skip(pageIndex * _dishesPerPage).Take(_dishesPerPage);
     }
+
+    public IEnumerable<T> GetFirstDishesOnPages()
+    {
+        var dishes = new List<T>();
+        for (var i = 0; i < PagesCount; i++)
+        {
+            dishes.Add(GetDishesOnPage(i).First());
+        }
+
+        return dishes;
+    }
 }
