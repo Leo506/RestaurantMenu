@@ -59,4 +59,30 @@ public partial class MenuMasterTests
         // assert
         result.SequenceEqual(expectedDishesCollection).Should().BeTrue();
     }
+
+    [Fact]
+    public void GetDishesOnPage_IndexLessThanZero_ThrowException()
+    {
+        // arrange
+        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+
+        // act
+        var action = () => sut.GetDishesOnPage(-1);
+
+        // assert
+        action.Should().Throw<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public void GetDishesOnPage_IndexMoreThanMaxPageIndex_ThrowException()
+    {
+        // arrange
+        var sut = new MenuMaster(MakeDishesCollection(), DishesPerPage);
+
+        // act
+        var action = () => sut.GetDishesOnPage(int.MaxValue);
+
+        // assert
+        action.Should().Throw<IndexOutOfRangeException>();
+    }
 }

@@ -37,6 +37,7 @@ public class MenuMaster  // TODO make generic
 
     public int GetDishesCountOnPage(int pageIndex)
     {
+        // TODO move in one if
         if (pageIndex < 0)
             throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
 
@@ -52,6 +53,9 @@ public class MenuMaster  // TODO make generic
 
     public IEnumerable<string> GetDishesOnPage(int pageIndex)
     {
+        if (pageIndex < 0 || pageIndex > PagesCount - 1)
+            throw new IndexOutOfRangeException(ExceptionMessages.IncorrectIndex(nameof(pageIndex), PagesCount - 1));
+        
         return _dishes.Skip(pageIndex * _dishesPerPage).Take(_dishesPerPage);
     }
 }
