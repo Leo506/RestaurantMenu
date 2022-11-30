@@ -5,15 +5,14 @@ namespace ArbusTestsTask;
 
 public class MenuMaster<T>
 {
-    public int Count => _dishes.Count;
+    public int DishesCount => _dishes.Count;
 
     public int PagesCount
     {
         get
         {
-            var count = _dishes.Count;
-            var result = count / _dishesPerPage;
-            if (result * _dishesPerPage < count)
+            var result = _dishes.Count / _dishesPerPage;
+            if (result * _dishesPerPage < _dishes.Count)
                 return result + 1;
             return result;
         }
@@ -43,8 +42,8 @@ public class MenuMaster<T>
         if (pageIndex != PagesCount - 1) 
             return _dishesPerPage;
         
-        var result = Count % _dishesPerPage;
-        return result == 0 ? _dishesPerPage : result;
+        var dishesCount = DishesCount % _dishesPerPage;
+        return dishesCount == 0 ? _dishesPerPage : dishesCount;
     }
 
     public IEnumerable<T> GetDishesOnPage(int pageIndex)

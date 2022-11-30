@@ -19,7 +19,7 @@ foreach (var item in food)
 Console.WriteLine();
 
 var menuMaster = new MenuMaster<string>(food, 2);
-Console.WriteLine($"MenuMaster count of dishes: {menuMaster.Count}");
+Console.WriteLine($"MenuMaster count of dishes: {menuMaster.DishesCount}");
 
 Console.WriteLine($"MenuMaster pages count: {menuMaster.PagesCount}");
 

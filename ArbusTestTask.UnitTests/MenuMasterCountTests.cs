@@ -6,7 +6,7 @@ namespace ArbusTestTask.UnitTests;
 public partial class MenuMasterTests
 {
     [Fact]
-    public void Count_ReturnsTotalDishesCount()
+    public void DishesCount_ReturnsTotalDishesCount()
     {
         // arrange
         var dishes = MakeDishesCollection().ToList();
@@ -15,7 +15,7 @@ public partial class MenuMasterTests
         var sut = new MenuMaster<string>(dishes, DishesPerPage);
 
         // act
-        var result = sut.Count;
+        var result = sut.DishesCount;
 
         // assert
         result.Should().Be(expectedResult);
